@@ -2,36 +2,36 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'mongoid'
+gem 'bson_ext'
 
+gem 'devise'
 
+gem 'haml-rails'                                  # haml and rails work well together
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails', '~> 3.2.3'                    # sass
+  gem 'coffee-rails', '~> 3.2.1'                  # coffeescript
+  gem 'closure-compiler'                          # compilation
+  gem 'therubyracer', :platforms => :ruby         # js runtime
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails'                                # jquery
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :test do
+  gem 'guard'                                     # autotesting
+  gem 'guard-rspec'                               # rspec support for guard
+  gem 'database_cleaner'                          # database cleaning during tests
+  gem 'factory_girl_rails'                        # factories are like fixtures ony better
+  gem 'cucumber-rails'                            # tdd framework
+  gem 'capybara'                                  # tdd syntax
+  gem 'mongoid-rspec'                             # mongoid support for rspec
+end
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+group :development, :test do
+  gem 'rspec-rails'                               # test framework
+  gem 'debugger'
+end
 
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'                                     # threaded webserver
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
