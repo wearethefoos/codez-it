@@ -23,13 +23,14 @@ group :test do
   gem 'guard-rspec'                               # rspec support for guard
   gem 'database_cleaner'                          # database cleaning during tests
   gem 'factory_girl_rails'                        # factories are like fixtures ony better
-  gem 'cucumber-rails'                            # tdd framework
+  gem 'cucumber-rails', require: false            # tdd framework
   gem 'capybara'                                  # tdd syntax
   gem 'mongoid-rspec'                             # mongoid support for rspec
 end
 
 group :development, :test do
   gem 'rspec-rails'                               # test framework
+  gem 'terminal-notifier'                         # native os x notifications
   gem 'debugger'
 end
 
