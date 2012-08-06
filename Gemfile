@@ -6,8 +6,11 @@ gem 'mongoid'
 gem 'bson_ext'
 
 gem 'devise'
+gem 'omniauth-github'
 
 gem 'haml-rails'                                  # haml and rails work well together
+gem 'redcarpet'
+gem 'albino'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'                    # sass

@@ -1,4 +1,18 @@
+- if current_user
+  %p= current_user.name
+  %p
+    :redcarpet
+      #{current_user.bio}
+
 %h1 Codez.it
 %p
   Create your own devblog at
   %code yourname.codez.it
+
+.code
+  :redcarpet
+    ```ruby
+    def foobar
+      'foo' + 'bar'
+    end
+    ```
