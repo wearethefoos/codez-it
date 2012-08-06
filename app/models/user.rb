@@ -15,6 +15,10 @@ class User
   validates_presence_of :encrypted_password
   validates_uniqueness_of :name, :email, :case_sensitive => false
 
+  has_one :account
+
+  accepts_nested_attributes_for :account
+
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   ## Recoverable
