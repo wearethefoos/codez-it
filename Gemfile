@@ -10,7 +10,7 @@ gem 'omniauth-github'
 
 gem 'haml-rails'                                  # haml and rails work well together
 gem 'redcarpet'
-gem 'albino'
+gem 'albino', git: 'git://github.com/austinbv/albino.git'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'                    # sass

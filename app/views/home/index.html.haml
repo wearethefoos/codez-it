@@ -4,10 +4,12 @@
     :redcarpet
       #{current_user.bio}
 
-%h1 Codez.it
 %p
   Create your own devblog at
-  %code yourname.codez.it
+  :redcarpet
+    `yourname.codez.it`
+
+%p Featuring code highlighting:
 
 .code
   :redcarpet
@@ -16,3 +18,11 @@
       'foo' + 'bar'
     end
     ```
+%p
+  and
+  =link_to "Github", "https://github.com"
+  integration:
+
+%p
+  Sign up with your
+  =link_to "Github account", "/auth/github", class: :button

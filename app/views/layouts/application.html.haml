@@ -1,0 +1,27 @@
+!!!5
+%html
+%head
+  %title CodezIt
+  = stylesheet_link_tag    "application", :media => "all"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+
+%body
+
+%header
+  %nav
+    %ul
+      - if current_user
+        %li
+          =link_to "New post", new_posts_path
+        %li
+          =link_to "Sign out", destroy_user_session_path
+      - else
+        %li
+          =link_to "Sign in", "/auth/github"
+
+  %h1 Codez.it
+
+.content
+  = yield
+

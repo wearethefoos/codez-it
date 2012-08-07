@@ -13,7 +13,9 @@ module Haml::Filters::Redcarpet
     require 'nokogiri'
     doc = Nokogiri::HTML(html)
     doc.search("//pre/code[@class]").each do |code|
-      code.parent.replace Albino.colorize(code.text.rstrip, 'ruby') #code[:class])
+      #line_numbers = doc.create_element("div") { |node| node['class'] = "line-numbers" }
+      #code.parent.before line_numbers
+      code.parent.replace Albino.colorize(code.text.rstrip, code['class'], :html, 'utf-8', "linenos=True")
     end
     doc.to_s
   end
