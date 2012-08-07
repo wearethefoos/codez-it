@@ -1,5 +1,7 @@
 CodezIt::Application.routes.draw do
 
+  resources :posts
+
   match '/auth/:provider/callback' => 'authentications#create'
 
   resources :authentications
