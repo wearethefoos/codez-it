@@ -1,0 +1,60 @@
+@import blueprint
++blueprint
+
+body
+  margin: 0
+  header
+    background-color: #ffffff
+    +filter-gradient(#ffffff, #e5e5e5, vertical)
+    +background-image(linear-gradient(top, #ffffff 0%,#e5e5e5 100%))
+    border-bottom: 1px solid #ccc
+    padding: 10px 0
+  h1
+    margin: 0
+    padding: 0 0 0 10px
+    a
+      font-size: 1.2em
+      color: #6293c5
+      text-decoration: none
+      text-shadow: 1px 1px -1px #fff
+      line-height: 1.5em
+      &:visited
+        color: #6293c5
+      &:hover
+        color: #6293c5
+        background: none
+    span
+      color: #999
+      font-size: 14px
+  nav
+    ul
+      display: block
+      list-style: none
+      float: right
+
+      li
+        display: inline
+
+  a
+    &.button
+      color: #333
+      text-decoration: none
+      text-shadow: 1px 1px -1px #fff
+      padding: 4px 6px
+      border: 1px solid #ccc
+      border-radius: 3px
+      +background-image(linear-gradient(top, #ffffff 0%,#e5e5e5 100%))
+      &:hover
+        color: #333
+        +background-image(linear-gradient(top, #e5e5e5 0%,#ffffff 100%))
+      &.primary
+        color: #333
+        border: 1px solid #9fafff
+        +background-image(linear-gradient(top, #afdfff 0%,#6293c5 100%))
+        text-shadow: 1px 1px -1px #afdfff
+        &:hover
+          +background-image(linear-gradient(top, #cfefff 0%,#6293c5 100%))
+
+  .content
+    padding: 1.5em 1em 2em
+

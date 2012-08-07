@@ -16,3 +16,5 @@
 
 /.rspec
 /.rvmrc
+.DS_Store
+/.sass-cache

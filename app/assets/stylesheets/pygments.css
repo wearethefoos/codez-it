@@ -1,12 +1,12 @@
-table.highlighttable { border-spacing: 0}
+table.highlighttable { border-spacing: 0; width: auto;}
 table.highlighttable tr {background-color: #eee; }
-td.linenos { text-align: center; border: 1px solid #ddd; border-right: 0; }
+td.linenos { text-align: center; border: 1px solid #ddd; border-right: 0; padding: 0; }
+td.linenos pre { padding: 0; margin: 1em 0; }
 span.lineno { background-color: #ffffff; }
 .linenodiv { color: #ccc; padding: 0 10px; margin: 0 -2px 0 0; border: 1px solid #ddd; border-left: 0; }
-pre { line-height: 125%; }
-td.code {border: 1px solid #ddd; border-left: 0;}
+td.code {border: 1px solid #ddd; border-left: 0; padding: 0;}
 .highlight { background-color: #eee; border: 1px solid #eee;}
-.highlight pre { padding: 1em; margin: 1em -2px; background-color: #fff; border: 1px solid #ddd; border-right: 0; }
+.highlight pre { padding: 1em; margin: 1em -1px; background-color: #fff; border: 1px solid #ddd; border-right: 0; }
 .highlight .c { color: #586E75 } /* Comment */
 .highlight .err { color: #93A1A1 } /* Error */
 .highlight .g { color: #93A1A1 } /* Generic */

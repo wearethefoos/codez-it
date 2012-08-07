@@ -8,19 +8,7 @@
 
 %body
 
-%header
-  %nav
-    %ul
-      - if current_user
-        %li
-          =link_to "New post", new_posts_path
-        %li
-          =link_to "Sign out", destroy_user_session_path
-      - else
-        %li
-          =link_to "Sign in", "/auth/github"
-
-  %h1 Codez.it
+=render 'layouts/header'
 
 .content
   = yield

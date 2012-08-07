@@ -9,6 +9,7 @@ gem 'devise'
 gem 'omniauth-github'
 
 gem 'haml-rails'                                  # haml and rails work well together
+gem 'compass-rails'
 gem 'redcarpet'
 gem 'albino', git: 'git://github.com/austinbv/albino.git'
 
