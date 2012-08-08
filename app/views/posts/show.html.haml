@@ -1,15 +1,15 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @post.title
-%p
-  %b Slug:
-  = @post.slug
-%p
-  %b Body:
-  = @post.body
+.post.section
+  %h1.title
+    = @post.title
+    %span by #{@post.user.name} on #{l(@post.created_at, format: :short)}
 
-= link_to 'Edit', edit_post_path(@post)
-\|
-= link_to 'Back', posts_path
+  %p
+    :redcarpet
+      #{@post.body}
+
+  - if user_signed_in? && @post.user == current_user
+    = link_to 'Edit', edit_post_path(@post)
+    \|
+  = link_to 'Back', posts_path

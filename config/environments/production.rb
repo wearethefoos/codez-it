@@ -69,4 +69,6 @@ CodezIt::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.session_store :cookie_store, :key => '_codez_it_session', :domain => 'codez.it'
+
 end

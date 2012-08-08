@@ -1,5 +1,7 @@
 CodezIt::Application.routes.draw do
 
+  devise_for :users
+
   resources :posts
   resources :accounts
 
@@ -7,14 +9,13 @@ CodezIt::Application.routes.draw do
 
   resources :authentications
 
-  devise_for :users
-
-  authenticated :user do
-    root :to => "posts#index"
+  constraints(Subdomain) do
+    root :to => 'posts#index'
   end
 
-  constraints(Subdomain) do
-    match '/' => 'posts#index'
+  authenticated :user do
+    root :to => "admin/accounts#index", :constraints => lambda{ |req| User.find(req.session["warden.user.user.key"][1]).first.admin }
+    #root :to => "posts#index", :constraints => lambda{ |req| User.find(req.session["warden.user.user.key"][1]).first.account }
   end
 
   root :to => "home#index"

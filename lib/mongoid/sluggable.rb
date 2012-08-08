@@ -32,7 +32,7 @@ module Mongoid
       end
 
       def slug_exists?(initial)
-        self.user.account.posts.where(slug: (initial + [self.send(self.class.slug_field)]).join(" ").parameterize, ).count > 0
+        self.user.posts.where(slug: (initial + [self.send(self.class.slug_field)]).join(" ").parameterize).not.where(_id: self.id).count > 0
       end
     end
 

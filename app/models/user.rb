@@ -6,11 +6,12 @@ class User
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  field :name,               :type => String, :default => ""
+  field :name,               :type => String,  :default => ""
+  field :admin,              :type => Boolean, :default => false
 
   ## Database authenticatable
-  field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
+  field :email,              :type => String,  :default => ""
+  field :encrypted_password, :type => String,  :default => ""
 
   ## Optional stuff
   field :bio,                :type => String,  :default => ""
@@ -26,6 +27,7 @@ class User
 
   has_one :account
   has_many :authentications, :dependent => :delete
+  has_many :posts
 
   accepts_nested_attributes_for :account
 

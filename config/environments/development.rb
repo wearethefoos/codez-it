@@ -36,4 +36,6 @@ CodezIt::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.session_store :cookie_store, :key => '_codez_it_session', :domain => 'lvh.me'
 end

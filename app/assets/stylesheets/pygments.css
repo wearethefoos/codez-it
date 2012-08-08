@@ -4,9 +4,9 @@ td.linenos { text-align: right; border: 1px solid #ddd; border-right: 0; padding
 td.linenos pre { padding: 0; margin: 1em 0; }
 span.lineno { background-color: #ffffff; }
 .linenodiv { color: #ccc; padding: 0 10px; margin: 0 -2px 0 0; border: 1px solid #ddd; border-left: 0; }
-td.code {border: 1px solid #ddd; border-left: 0; padding: 0;}
+td.code {border: 1px solid #ddd; border-left: 0; padding: 0; }
 .highlight { background-color: #eee; border: 1px solid #eee;}
-.highlight pre { padding: 1em; margin: 1em -1px; background-color: #fff; border: 1px solid #ddd; border-right: 0; }
+.highlight pre { padding: 1em; margin: 1em -1px; background-color: #fff; border: 1px solid #ddd; border-right: 0; display: block; width: 100%; overflow: auto; }
 .highlight .c { color: #586E75 } /* Comment */
 .highlight .err { color: #93A1A1 } /* Error */
 .highlight .g { color: #93A1A1 } /* Generic */

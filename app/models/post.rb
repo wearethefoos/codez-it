@@ -9,5 +9,11 @@ class Post
 
   slugged_by :title
 
+  belongs_to :user
+
   embeds_many :comments, class_name: 'Post::Comment'
+
+  def self.from_blog(account_name)
+    Account.find(account_name).user.posts
+  end
 end
