@@ -10,10 +10,7 @@
     = f.label :title
     = f.text_field :title
   .field
-    = f.label :slug
-    = f.text_field :slug
-  .field
     = f.label :body
-    = f.text_field :body
+    = f.text_area :body
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'button primary'

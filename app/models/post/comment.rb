@@ -3,7 +3,7 @@ class Post::Comment
   include Mongoid::Timestamps
   include Mongoid::Votable
 
-  field :comment,    type: String,  default: ""
+  field :text,    type: String,  default: ""
 
   belongs_to :user
 

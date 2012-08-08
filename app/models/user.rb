@@ -59,6 +59,10 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
 
+  def has_blog?
+    account.present? && account.name
+  end
+
   def apply_omniauth(omniauth)
     self.email = omniauth['info']['email'] if email.blank?
     apply_trusted_services(omniauth) if self.new_record?

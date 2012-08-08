@@ -1,20 +1,24 @@
 %header
   .container
-    %nav
-      %ul
-        - if current_user
-          %li
-            = current_user.name
-          %li
-            =link_to "new post", new_post_path, class: 'primary button'
-          %li
-            =link_to "sign out", destroy_user_session_path
-        - else
-          %li
-            =link_to "sign in", "/auth/github"
-          %li
-            =link_to "sign up", "/auth/github", class: 'primary button'
-
-    %h1
-      = link_to "codez.it", "/"
-      %span and blog aboutz it
+    .title
+      %h1
+        = link_to "codez.it", "/"
+        %span and blog aboutz it
+    .menu
+      %nav
+        %ul
+          - if current_user
+            %li
+              = current_user.name
+            %li
+              - if current_user.has_blog?
+                =link_to "New post", new_post_path, class: 'primary button'
+              - else
+                =link_to "Create blog", new_account_path, class: 'primary button'
+            %li
+              =link_to "sign out", destroy_user_session_path
+          - else
+            %li
+              =link_to "sign in", "/auth/github"
+            %li
+              =link_to "sign up", "/auth/github", class: 'primary button'

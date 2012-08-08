@@ -1,61 +1,104 @@
+@import config/colors
+@import config/grid
+
 @import blueprint
+@import blueprint/reset
+@import blueprint/buttons
+@import compass/css3
 +blueprint
 
 body
   margin: 0
   header
-    background-color: #ffffff
-    +filter-gradient(#ffffff, #e5e5e5, vertical)
-    +background-image(linear-gradient(top, #ffffff 0%,#e5e5e5 100%))
-    border-bottom: 1px solid #ccc
-    padding: 10px 0
-  h1
-    margin: 0
-    padding: 0 0 0 10px
-    text-shadow: 1px 1px -1px #fff
-    a
-      color: #6293c5
-      text-decoration: none
-      line-height: 1.5em
-      &:visited
-        color: #6293c5
-      &:hover
-        color: #6293c5
-        background: none
-    span
-      color: #999
-      font-size: 14px
-  nav
-    ul
-      display: block
-      list-style: none
-      float: right
-      margin: 1em 0
+    background-color: $header-background-color
+    +filter-gradient($header-background-color, $header-background-color-gradient-bottom, vertical)
+    +background-image(linear-gradient(top, $header-background-color 0%,$header-background-color-gradient-bottom 100%))
+    border-bottom: 1px solid $border-color
+    padding: 0
+  .title
+    +column(8)
+    h1
+      margin: 0
       padding: 0
+      text-shadow: 1px 1px -1px darken($header-background-color, 2%)
+      a
+        color: #6293c5
+        text-decoration: none
+        line-height: 1.5em
+        &:visited
+          color: #6293c5
+        &:hover
+          color: #6293c5
+          background: none
+      span
+        color: #999
+        font-size: 14px
+  .menu
+    +column(4, true)
+    nav
+      ul
+        font-size: 14px
+        display: block
+        list-style: none
+        margin: 0
+        padding: 0
 
-      li
-        display: inline
+        li
+          display: inline
+
+  a.button, button.button, input.button
+    color: #333
+    text-decoration: none
+    text-shadow: 1px 1px -1px #fff
+    border: 1px solid #ccc
+    +border-radius
+    +background-image(linear-gradient(top, #ffffff 0%,#e5e5e5 100%))
+    +button-colors
+    +button-hover-colors
+    +button-active-colors
+    +box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05))
+    &:hover
+      +background-image(linear-gradient(top, #e5e5e5 0%,#ffffff 100%))
+    &.primary
+      border: 1px solid #9fafff
+      +background-image(linear-gradient(top, #afdfff 0%,#6293c5 100%))
+      text-shadow: 1px 1px -1px #afdfff
+      &:hover
+        +background-image(linear-gradient(top, #cfefff 0%,#6293c5 100%))
 
   a
     &.button
-      color: #333
-      text-decoration: none
-      text-shadow: 1px 1px -1px #fff
-      padding: 4px 6px
-      border: 1px solid #ccc
-      border-radius: 3px
-      +background-image(linear-gradient(top, #ffffff 0%,#e5e5e5 100%))
-      &:hover
-        color: #333
-        +background-image(linear-gradient(top, #e5e5e5 0%,#ffffff 100%))
-      &.primary
-        color: #333
-        border: 1px solid #9fafff
-        +background-image(linear-gradient(top, #afdfff 0%,#6293c5 100%))
-        text-shadow: 1px 1px -1px #afdfff
-        &:hover
-          +background-image(linear-gradient(top, #cfefff 0%,#6293c5 100%))
+      +anchor-button
+      padding: 3px 6px
+
+  button.button, input.button
+    +button-button
 
   .content
     padding: 1.5em 10px 2em
+
+
+  #notice
+    color: $notice-bg-color
+    background-color: $notice-bg-color
+
+  .field_with_errors
+    background-color: $error-bg-color
+
+  #error_explanation
+    border: 2px solid $error-border-color
+    background-color: $error-bg-color
+    h2
+      background-color: $error-bg-color
+      color: $error-color
+
+
+  code
+    padding: 2px 4px
+    display: block
+    background: $code-bg-color
+    color: $code-color
+    border: 1px solid $border-color
+    +border-radius
+    +box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05))
 

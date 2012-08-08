@@ -1,20 +1,41 @@
-%p
-  Create your own devblog at
-  :redcarpet
-    `yourname.codez.it`
+.home.section
+  %p
+    Create your own devblog at
+    :redcarpet
+      `yourname.codez.it`
 
-%p Featuring code highlighting:
+  %p
+    Sign up with
+    =link_to "Github", "/auth/github", class: 'button primary'
 
-.code
-  :redcarpet
-    ```ruby
-    def foobar
-      'foo' + 'bar'
-    end
-    ```
-%p
-  and – of course – Github integration:
+  %h1 Featuring
 
-%p
-  Sign up with your
-  =link_to "Github account", "/auth/github", class: 'button primary'
+  %p All the usual stuff – because it's good!
+
+  %ul.features
+    %li
+      %h1 Markdown
+
+      .code
+        :redcarpet
+          ```
+           * This is __awesome__!
+          ```
+
+    %li
+      %h1 Syntax highlighting:
+
+      .code
+        :redcarpet
+          ```ruby
+          def foobar
+            'foo' + 'bar'
+          end
+          ```
+
+    %li
+      %h1 And – of course – Github integration:
+
+      %p
+        Sign up with
+        =link_to "Github", "/auth/github", class: 'button primary'

@@ -2,8 +2,7 @@ class Account
   include Mongoid::Document
 
   field :name, type: String, default: ""
-
-  index({name: 1}, {unique: true})
+  field :_id, type: String, default: ->{ name.parameterize }
 
   belongs_to :user
 

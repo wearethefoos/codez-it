@@ -2,10 +2,12 @@ class Post
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Votable
+  include Mongoid::Sluggable
 
   field :title, type: String
-  field :slug, type: String
   field :body, type: String
 
-  embeds_many :comments
+  slugged_by :title
+
+  embeds_many :comments, class_name: 'Post::Comment'
 end
