@@ -1,0 +1,11 @@
+%article
+  %h1.title
+    = link_to post.title, post
+    %span
+      by #{post.user.name} #{time_ago_in_words post.created_at} ago
+      - if time_ago_in_words(post.updated_at) != time_ago_in_words(post.created_at)
+        – last updated #{time_ago_in_words post.updated_at} ago
+
+  %p
+    :redcarpet
+      #{post.body}

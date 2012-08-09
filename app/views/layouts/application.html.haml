@@ -7,10 +7,17 @@
   = csrf_meta_tags
 
 %body
+  #root
+    =render 'layouts/header'
 
-=render 'layouts/header'
+    .container
 
-.container
-  .content
-    = yield
+      .content
 
+        -if notice
+          %p#notice= notice
+
+        = yield
+
+      #root-footer
+  = render 'layouts/footer'

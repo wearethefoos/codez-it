@@ -3,13 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import config/colors
+@import config/grid
+
+@import blueprint
 
 .post.section
   h1
-    &.title
-      padding-top: 0
+    a
+      color: $header-color
+      text-decoration: none
     span
       display: block
       font-size: 14px
       color: $quiet-color
       padding-top: 1em
+  article
+    +column(8)
