@@ -4,6 +4,7 @@ gem 'rails', '3.2.7'
 
 gem 'mongoid'
 gem 'bson_ext'
+gem 'redis-namespace'
 
 gem 'devise'
 gem 'omniauth-github'

@@ -1,13 +1,23 @@
 %footer
   .container
     .col.left
-      .section
+      %nav.section
         %h3 About
+        %ul
+          %li= link_to "Donate", "http://codez.it/donate"
+          %li= link_to "Codez.it Source Code", "https://github.com/foxycoder/codez-it"
+          %li= link_to "Under the Hood", "http://codez.it/under-the-hood"
+          %li= link_to "Contributors", "https://github.com/foxycoder/codez-it/graphs/contributors"
     .col.middle
-      .section
+      %nav.section
         %h3 See also
+        %ul
+          %li= link_to "Support", "http://codez.it/support"
+          %li= link_to "FAQ", "http://codez.it/faq"
+          %li= link_to "Newsletter", "http://codez.it/newsletter"
+          %li= link_to "Follow us", "http://twitter.com/codezit"
     .col.right
-      .section
+      %nav.section
         %h3 Powered by
         %ul.sponsors
-          %li= image_tag "http://static-4.cdnhub.nl/images/logo-springest-low.png"
+          %li= link_to image_tag("http://static-4.cdnhub.nl/images/logo-springest-low.png"), "http://www.springest.com"

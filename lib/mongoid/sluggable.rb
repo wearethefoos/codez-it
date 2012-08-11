@@ -1,3 +1,5 @@
+require 'mongoid/sluggable/router/redis_router'
+
 module Mongoid
   module Sluggable
     extend ActiveSupport::Concern
@@ -9,8 +11,30 @@ module Mongoid
 
       validates_with Mongoid::Sluggable::Validator
 
+      def to_url
+        self.slug
+      end
+
       def self.slugged_by(field)
         @@slug_field = field.to_sym
+      end
+
+      def self.find_route(route, subdomain)
+        if respond_to?(:find_route_custom)
+          send(:find_route_custom, route, subdomain)
+        else
+          # Strip left slash (/) and parameterize
+          route = route.match(/^\/(.*)/)[1]
+          if subdomain.empty?
+            self.find_by_slug(route)
+          else
+            Account.find(subdomain).user.posts.find_by_slug(route)
+          end
+        end
+      end
+
+      def self.find_by_slug(slug)
+        where(slug: slug).first
       end
 
       def self.slug_field
@@ -28,11 +52,15 @@ module Mongoid
 
         return if slug_exists?(initial)
 
-        self.slug = (initial + [self.send(self.class.slug_field)]).join(" ").parameterize
+        self.slug = create_slug_with_initial(initial)
       end
 
       def slug_exists?(initial)
-        self.user.posts.where(slug: (initial + [self.send(self.class.slug_field)]).join(" ").parameterize).not.where(_id: self.id).count > 0
+        self.user.posts.where(slug: create_slug_with_initial(initial)).not.where(_id: self.id).count > 0
+      end
+
+      def create_slug_with_initial(initial)
+        [initial.join("/"), self.send(self.class.slug_field).parameterize].join("/")
       end
     end
 

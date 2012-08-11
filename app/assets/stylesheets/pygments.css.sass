@@ -1,0 +1,153 @@
+@import config/grid
+
+@import blueprint
+
+table.highlighttable
+  border-spacing: 0
+  tr
+    background-color: #eee
+
+td.linenos
+  text-align: right
+  font-size: 14px
+  border: 1px solid #ddd
+  border-right: 0
+  padding: 0
+  max-width: 4em
+  width: 2em
+  pre
+    padding: 0
+    margin: 1em 0
+
+span.lineno
+  background-color: #ffffff
+
+.linenodiv
+  color: #ccc
+  padding: 0 10px
+  margin: 0 -2px 0 0
+  border: 1px solid #ddd
+  border-left: 0
+
+td.code
+  font-size: 14px
+  border: 1px solid #ddd
+  border-left: 0
+  padding: 0
+
+.highlight
+  background-color: #eee
+  border: 1px solid #eee
+  pre
+    padding: 1em
+    margin: 1em -1px
+    background-color: #fff
+    border: 1px solid #ddd
+    border-right: 0
+    display: block
+    overflow: hidden
+    +column(9)
+    &:hover
+      overflow: auto
+  .c
+    color: #586E75
+  .err, .g
+    color: #93A1A1
+  .k
+    color: #859900
+  .l, .n
+    color: #93A1A1
+  .o
+    color: #859900
+  .x
+    color: #CB4B16
+  .p
+    color: #93A1A1
+  .cm
+    color: #586E75
+  .cp
+    color: #859900
+  .c1
+    color: #586E75
+  .cs
+    color: #859900
+  .gd
+    color: #2AA198
+  .ge
+    color: #93A1A1
+    font-style: italic
+  .gr
+    color: #DC322F
+  .gh
+    color: #CB4B16
+  .gi
+    color: #859900
+  .go, .gp
+    color: #93A1A1
+  .gs
+    color: #93A1A1
+    font-weight: bold
+  .gu
+    color: #CB4B16
+  .gt
+    color: #93A1A1
+  .kc
+    color: #CB4B16
+  .kd
+    color: #268BD2
+  .kn, .kp
+    color: #859900
+  .kr
+    color: #268BD2
+  .kt
+    color: #DC322F
+  .ld
+    color: #93A1A1
+  .m, .s
+    color: #2AA198
+  .na
+    color: #93A1A1
+  .nb
+    color: #B58900
+  .nc
+    color: #268BD2
+  .no
+    color: #CB4B16
+  .nd
+    color: #268BD2
+  .ni, .ne
+    color: #CB4B16
+  .nf
+    color: #268BD2
+  .nl, .nn, .nx, .py
+    color: #93A1A1
+  .nt, .nv
+    color: #268BD2
+  .ow
+    color: #859900
+  .w
+    color: #93A1A1
+  .mf, .mh, .mi, .mo
+    color: #2AA198
+  .sb
+    color: #586E75
+  .sc
+    color: #2AA198
+  .sd
+    color: #93A1A1
+  .s2
+    color: #2AA198
+  .se
+    color: #CB4B16
+  .sh
+    color: #93A1A1
+  .si, .sx
+    color: #2AA198
+  .sr
+    color: #DC322F
+  .s1, .ss
+    color: #2AA198
+  .bp, .vc, .vg, .vi
+    color: #268BD2
+  .il
+    color: #2AA198

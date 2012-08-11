@@ -1,5 +1,5 @@
 .post.section
-  %p
+  %p.actions
     - if user_signed_in? && @post.user == current_user
       = link_to 'Edit', edit_post_path(@post)
       \|

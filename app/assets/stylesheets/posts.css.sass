@@ -7,7 +7,12 @@
 
 @import blueprint
 
+$post-header-bg-color: lighten($link-color, 40%)
+
 .post.section
+  p.actions
+    padding: 0
+    margin-bottom: 5px
   h1
     a
       color: $header-color
@@ -15,7 +20,16 @@
     span
       display: block
       font-size: 14px
+      font-weight: normal
+      font-family: times, serif
       color: $quiet-color
       padding-top: 1em
+    &.title
+      background-color: $post-header-bg-color
+      padding: 10px 10px 20px
+      border: 1px solid $border-color
+      border-width: 1px 0
   article
-    +column(8)
+    +column(10)
+    .content
+      padding: 10px

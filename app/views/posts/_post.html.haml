@@ -6,6 +6,6 @@
       - if time_ago_in_words(post.updated_at) != time_ago_in_words(post.created_at)
         – last updated #{time_ago_in_words post.updated_at} ago
 
-  %p
+  .content
     :redcarpet
       #{post.body}

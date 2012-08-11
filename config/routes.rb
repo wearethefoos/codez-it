@@ -5,6 +5,8 @@ CodezIt::Application.routes.draw do
   resources :posts
   resources :accounts
 
+  match "*path" => "posts#show", constraints: Mongoid::Sluggable::RedisRouter.new('Post')
+
   match '/auth/:provider/callback' => 'authentications#create'
 
   resources :authentications
