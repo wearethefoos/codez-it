@@ -1,4 +1,4 @@
-require 'mongoid/sluggable/router/redis_router'
+require 'mongoid/sluggable/redis_router'
 
 module Mongoid
   module Sluggable
@@ -15,8 +15,9 @@ module Mongoid
         self.slug
       end
 
-      def self.slugged_by(field)
+      def self.slugged_by(field, options={})
         @@slug_field = field.to_sym
+        @@options = options
       end
 
       def self.find_route(route, subdomain)
@@ -41,13 +42,25 @@ module Mongoid
         @@slug_field
       end
 
-      def create_slug
-        t = Time.now
-        initial = [t.year, t.month]
-        extra_date_parts = [t.day, t.hour, t.min, t.sec]
+      def self.options
+        @@options
+      end
 
-        while slug_exists?(initial) && extra_date_parts.size > 0
-          initial << extra_date_parts.pop
+      def timed_slugs?
+        options[:timed].nil? || options[:timed]
+      end
+
+      def create_slug
+        intial = false
+
+        if timed_slugs?
+          t = Time.now
+          initial = [t.year, t.month]
+          extra_date_parts = [t.day, t.hour, t.min, t.sec]
+
+          while slug_exists?(initial) && extra_date_parts.size > 0
+            initial << extra_date_parts.pop
+          end
         end
 
         return if slug_exists?(initial)
@@ -55,12 +68,16 @@ module Mongoid
         self.slug = create_slug_with_initial(initial)
       end
 
-      def slug_exists?(initial)
+      def slug_exists?(initial=false)
         self.user.posts.where(slug: create_slug_with_initial(initial)).not.where(_id: self.id).count > 0
       end
 
-      def create_slug_with_initial(initial)
-        [initial.join("/"), self.send(self.class.slug_field).parameterize].join("/")
+      def create_slug_with_initial(initial=false)
+        if initial
+          [initial.join("/"), self.send(self.class.slug_field).parameterize].join("/")
+        else
+          self.send(self.class.slug_field).parameterize
+        end
       end
     end
 

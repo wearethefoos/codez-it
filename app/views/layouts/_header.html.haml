@@ -16,7 +16,7 @@
               - else
                 =link_to "Create blog", new_account_path, class: 'primary button'
             %li
-              =link_to "sign out", destroy_user_session_path
+              =link_to "sign out", destroy_user_session_url(subdomain: false), method: :delete
           - else
             %li
               =link_to "sign in", "/auth/github"

@@ -1,6 +1,7 @@
 class Post
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Versioning
   include Mongoid::Votable
   include Mongoid::Sluggable
 
@@ -13,6 +14,9 @@ class Post
 
   embeds_many :comments, class_name: 'Post::Comment'
   embeds_many :gists,    class_name: 'Github::Gist'
+
+  validates_presence_of :title
+  validates_presence_of :body
 
   # Public: Get all posts for a certain
   # Account name (blog).

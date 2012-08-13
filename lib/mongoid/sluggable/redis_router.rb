@@ -1,4 +1,4 @@
-require 'mongoid/sluggable/router/mongo_router'
+require 'mongoid/sluggable/mongo_router'
 require 'yaml'
 
 module Mongoid
@@ -37,7 +37,7 @@ module Mongoid
       def setup_redis_connection
         unless defined?(@@redis)
           rails_env = ENV['RAILS_ENV'] || 'production'
-          options = YAML.load_file(File.expand_path('../../../../../config/sluggable.yml', __FILE__))[rails_env]['redis']
+          options = YAML.load_file("#{Rails.root}/config/sluggable.yml")[rails_env]['redis']
           host = options['host'] || 'localhost'
           port = options['port'] || 6379
           @@redis = Redis.new(:host => options['host'], :port => port)

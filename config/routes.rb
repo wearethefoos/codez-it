@@ -1,4 +1,8 @@
+require "#{Rails.root}/lib/mongoid/sluggable"
+
 CodezIt::Application.routes.draw do
+
+  resources :pages
 
   devise_for :users
 
@@ -11,13 +15,16 @@ CodezIt::Application.routes.draw do
 
   resources :authentications
 
-  constraints(Subdomain) do
-    root :to => 'posts#index'
+  authenticated :user do
+    root :to => "admin/accounts#index", :constraints => lambda { |req|
+      req.session["warden.user.user.key"] &&
+        User.where(_id: req.session["warden.user.user.key"][1]).count > 0 &&
+        User.find(req.session["warden.user.user.key"][1]).first.admin
+    }
   end
 
-  authenticated :user do
-    root :to => "admin/accounts#index", :constraints => lambda{ |req| User.find(req.session["warden.user.user.key"][1]).first.admin }
-    #root :to => "posts#index", :constraints => lambda{ |req| User.find(req.session["warden.user.user.key"][1]).first.account }
+  constraints(Subdomain) do
+    root :to => 'posts#index'
   end
 
   root :to => "home#index"
