@@ -11,13 +11,17 @@ module Mongoid
 
       validates_with Mongoid::Sluggable::Validator
 
+      def self.defaults
+        {scope: false, timed: false}
+      end
+
       def to_url
         self.slug
       end
 
       def self.slugged_by(field, options={})
         @@slug_field = field.to_sym
-        @@options = options
+        @@sluggable_options = defaults.merge options
       end
 
       def self.find_route(route, subdomain)
@@ -26,7 +30,7 @@ module Mongoid
         else
           # Strip left slash (/) and parameterize
           route = route.match(/^\/(.*)/)[1]
-          if subdomain.empty?
+          if subdomain.empty? || subdomain == 'www'
             self.find_by_slug(route)
           else
             Account.find(subdomain).user.posts.find_by_slug(route)
@@ -42,12 +46,12 @@ module Mongoid
         @@slug_field
       end
 
-      def self.options
-        @@options
+      def self.sluggable_scope
+        @@sluggable_options[:scope]
       end
 
       def timed_slugs?
-        options[:timed].nil? || options[:timed]
+        @@sluggable_options[:timed]
       end
 
       def create_slug
@@ -69,7 +73,11 @@ module Mongoid
       end
 
       def slug_exists?(initial=false)
-        self.user.posts.where(slug: create_slug_with_initial(initial)).not.where(_id: self.id).count > 0
+        with_same_slug = self.class.where(slug: create_slug_with_initial(initial)).not.where(_id: self.id)
+        if self.class.sluggable_scope
+          with_same_slug.where(self.class.sluggable_scope => self.send(self.class.sluggable_scope))
+        end
+        with_same_slug.count > 0
       end
 
       def create_slug_with_initial(initial=false)

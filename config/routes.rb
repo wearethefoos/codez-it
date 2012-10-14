@@ -2,18 +2,15 @@ require "#{Rails.root}/lib/mongoid/sluggable"
 
 CodezIt::Application.routes.draw do
 
-  resources :pages
-
   devise_for :users
 
   resources :posts
   resources :accounts
+  resources :authentications
 
   match "*path" => "posts#show", constraints: Mongoid::Sluggable::RedisRouter.new('Post')
 
   match '/auth/:provider/callback' => 'authentications#create'
-
-  resources :authentications
 
   authenticated :user do
     root :to => "admin/accounts#index", :constraints => lambda { |req|

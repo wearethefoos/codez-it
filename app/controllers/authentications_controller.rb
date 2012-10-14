@@ -1,8 +1,12 @@
 class AuthenticationsController < ApplicationController
+  authorize_resource
+
   # GET /authentications
   # GET /authentications.json
   def index
-    @authentications = Authentication.all
+    @authentications = current_user.admin? ?
+      Authentication.all :
+      current_user.authentications
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,13 +45,12 @@ class AuthenticationsController < ApplicationController
   # POST /authentications.json
   def create
     omniauth = request.env["omniauth.auth"]
-    pp omniauth
     authentication = Authentication.where(:provider => omniauth['provider'], :uid => omniauth['uid']).first
     if authentication
       flash[:notice] = t(:signed_in)
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user
-      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      current_user.authentications << Authentication.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
       flash[:notice] = t(:success)
       redirect_to authentications_url
     elsif user = create_new_omniauth_user(omniauth)
@@ -90,10 +93,7 @@ class AuthenticationsController < ApplicationController
     def create_new_omniauth_user(omniauth)
       user = User.new
       user.apply_omniauth(omniauth)
-      if user.save
-        user
-      else
-        nil
-      end
+      return user if user.save
+      nil
     end
 end

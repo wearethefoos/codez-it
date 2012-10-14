@@ -22,11 +22,14 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
+  config.include Devise::TestHelpers, :type => :controller
+  config.extend Devise::ControllerMacros, :type => :controller
+
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  # config.order = "random"
 
   # Clean up the database
   require 'database_cleaner'
@@ -37,5 +40,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.clean
+    request.env["devise.mapping"] = Devise.mappings[:user]
+    request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
   end
 end

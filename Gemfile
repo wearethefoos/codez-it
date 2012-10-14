@@ -8,6 +8,7 @@ gem 'redis-namespace'
 
 gem 'devise'
 gem 'omniauth-github'
+gem 'cancan'
 
 gem 'haml-rails'                                  # haml and rails work well together
 gem 'compass-rails'
@@ -24,18 +25,20 @@ end
 gem 'jquery-rails'                                # jquery
 
 group :test do
-  gem 'guard'                                     # autotesting
-  gem 'guard-rspec'                               # rspec support for guard
   gem 'database_cleaner'                          # database cleaning during tests
-  gem 'factory_girl_rails'                        # factories are like fixtures ony better
   gem 'cucumber-rails', require: false            # tdd framework
   gem 'capybara'                                  # tdd syntax
-  gem 'mongoid-rspec'                             # mongoid support for rspec
 end
 
 group :development, :test do
   gem 'rspec-rails'                               # test framework
-  gem 'terminal-notifier'                         # native os x notifications
+  gem 'guard'                                     # autotesting
+  gem 'rb-fsevent'                                # file save event detection
+  gem 'guard-rspec'                               # rspec support for guard
+  gem 'terminal-notifier-guard'                   # native os x notifications
+  gem 'mongoid-rspec'                             # mongoid support for rspec
+  gem 'factory_girl_rails'                        # factories are like fixtures ony better
+  gem 'faker'                                     # generate fake data
   gem 'debugger'
 end
 

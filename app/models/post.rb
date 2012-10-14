@@ -8,7 +8,7 @@ class Post
   field :title, type: String
   field :body, type: String
 
-  slugged_by :title
+  slugged_by :title, scope: :user_id
 
   belongs_to :user
 

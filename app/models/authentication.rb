@@ -6,4 +6,6 @@ class Authentication
   field :uid, type: String
 
   belongs_to :user
+
+  validates_presence_of :provider, :uid
 end

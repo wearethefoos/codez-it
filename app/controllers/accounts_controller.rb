@@ -1,8 +1,14 @@
 class AccountsController < ApplicationController
+  authorize_resource
+
+  before_filter :authenticate_user!
+
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = current_user.admin? ?
+      Account.all :
+      current_user.account
 
     respond_to do |format|
       format.html # index.html.erb

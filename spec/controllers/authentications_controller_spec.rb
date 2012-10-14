@@ -24,140 +24,131 @@ describe AuthenticationsController do
   # Authentication. As you add validations to Authentication, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for :authentication
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # AuthenticationsController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
+  context "As a logged in User" do
+    login_admin
 
-  describe "GET index" do
-    it "assigns all authentications as @authentications" do
-      authentication = Authentication.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:authentications).should eq([authentication])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested authentication as @authentication" do
-      authentication = Authentication.create! valid_attributes
-      get :show, {:id => authentication.to_param}, valid_session
-      assigns(:authentication).should eq(authentication)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new authentication as @authentication" do
-      get :new, {}, valid_session
-      assigns(:authentication).should be_a_new(Authentication)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested authentication as @authentication" do
-      authentication = Authentication.create! valid_attributes
-      get :edit, {:id => authentication.to_param}, valid_session
-      assigns(:authentication).should eq(authentication)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Authentication" do
-        expect {
-          post :create, {:authentication => valid_attributes}, valid_session
-        }.to change(Authentication, :count).by(1)
-      end
-
-      it "assigns a newly created authentication as @authentication" do
-        post :create, {:authentication => valid_attributes}, valid_session
-        assigns(:authentication).should be_a(Authentication)
-        assigns(:authentication).should be_persisted
-      end
-
-      it "redirects to the created authentication" do
-        post :create, {:authentication => valid_attributes}, valid_session
-        response.should redirect_to(Authentication.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved authentication as @authentication" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Authentication.any_instance.stub(:save).and_return(false)
-        post :create, {:authentication => {}}, valid_session
-        assigns(:authentication).should be_a_new(Authentication)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Authentication.any_instance.stub(:save).and_return(false)
-        post :create, {:authentication => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested authentication" do
+    describe "GET index" do
+      it "assigns all authentications as @authentications" do
         authentication = Authentication.create! valid_attributes
-        # Assuming there are no other authentications in the database, this
-        # specifies that the Authentication created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Authentication.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => authentication.to_param, :authentication => {'these' => 'params'}}, valid_session
+        get :index
+        assigns(:authentications).to_a.should eq(Authentication.all.to_a)
       end
+    end
+  end
 
+  context "As a logged in User" do
+    login_user
+
+    describe "GET index" do
+      it "assigns all authentications as @authentications" do
+        authentication = Authentication.create! valid_attributes
+        get :index
+        assigns(:authentications).to_a.should eq(@current_user.authentications.to_a)
+      end
+    end
+
+    describe "GET show" do
       it "assigns the requested authentication as @authentication" do
         authentication = Authentication.create! valid_attributes
-        put :update, {:id => authentication.to_param, :authentication => valid_attributes}, valid_session
+        get :show, {:id => authentication.to_param}
         assigns(:authentication).should eq(authentication)
       end
+    end
 
-      it "redirects to the authentication" do
-        authentication = Authentication.create! valid_attributes
-        put :update, {:id => authentication.to_param, :authentication => valid_attributes}, valid_session
-        response.should redirect_to(authentication)
+    describe "GET new" do
+      it "assigns a new authentication as @authentication" do
+        get :new
+        assigns(:authentication).should be_a_new(Authentication)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the authentication as @authentication" do
+    describe "GET edit" do
+      it "assigns the requested authentication as @authentication" do
         authentication = Authentication.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Authentication.any_instance.stub(:save).and_return(false)
-        put :update, {:id => authentication.to_param, :authentication => {}}, valid_session
+        get :edit, {:id => authentication.to_param}
         assigns(:authentication).should eq(authentication)
       end
+    end
 
-      it "re-renders the 'edit' template" do
-        authentication = Authentication.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Authentication.any_instance.stub(:save).and_return(false)
-        put :update, {:id => authentication.to_param, :authentication => {}}, valid_session
-        response.should render_template("edit")
+    describe "POST create" do
+      describe "with valid params" do
+        it "creates a new Authentication" do
+          expect {
+            post :create, {:authentication => valid_attributes}
+          }.to change(Authentication, :count).by(1)
+        end
+
+        pending "Redirects should be tested!"
+      end
+
+      describe "with invalid params" do
+        pending "To be determined."
       end
     end
-  end
 
-  describe "DELETE destroy" do
-    it "destroys the requested authentication" do
-      authentication = Authentication.create! valid_attributes
-      expect {
-        delete :destroy, {:id => authentication.to_param}, valid_session
-      }.to change(Authentication, :count).by(-1)
+    describe "PUT update" do
+      describe "with valid params" do
+        it "updates the requested authentication" do
+          authentication = Authentication.create! valid_attributes
+          # Assuming there are no other authentications in the database, this
+          # specifies that the Authentication created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Authentication.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+          put :update, {:id => authentication.to_param, :authentication => {'these' => 'params'}}
+        end
+
+        it "assigns the requested authentication as @authentication" do
+          authentication = Authentication.create! valid_attributes
+          put :update, {:id => authentication.to_param, :authentication => valid_attributes}
+          assigns(:authentication).should eq(authentication)
+        end
+
+        it "redirects to the authentication" do
+          authentication = Authentication.create! valid_attributes
+          put :update, {:id => authentication.to_param, :authentication => valid_attributes}
+          response.should redirect_to(authentication)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the authentication as @authentication" do
+          authentication = Authentication.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Authentication.any_instance.stub(:save).and_return(false)
+          put :update, {:id => authentication.to_param, :authentication => {}}
+          assigns(:authentication).should eq(authentication)
+        end
+
+        it "re-renders the 'edit' template" do
+          authentication = Authentication.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Authentication.any_instance.stub(:save).and_return(false)
+          put :update, {:id => authentication.to_param, :authentication => {}}
+          response.should render_template("edit")
+        end
+      end
     end
 
-    it "redirects to the authentications list" do
-      authentication = Authentication.create! valid_attributes
-      delete :destroy, {:id => authentication.to_param}, valid_session
-      response.should redirect_to(authentications_url)
+    describe "DELETE destroy" do
+      before do
+        @authentication = FactoryGirl.create :authentication
+        @current_user.authentications << @authentication
+      end
+
+      it "destroys the requested authentication" do
+        expect {
+          delete :destroy, {:id => @authentication.to_param}
+        }.to change(Authentication, :count).by(-1)
+      end
+
+      it "redirects to the authentications list" do
+        delete :destroy, {:id => @authentication.to_param}
+        response.should redirect_to(authentications_url)
+      end
     end
   end
 

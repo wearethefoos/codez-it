@@ -18,3 +18,5 @@
 /.rvmrc
 .DS_Store
 /.sass-cache
+*.swp
+/.rbenv-gemsets
