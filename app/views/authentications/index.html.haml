@@ -16,7 +16,7 @@
       %td= authentication.uid
       %td= link_to 'Show', authentication
       %td= link_to 'Edit', edit_authentication_path(authentication)
-      %td= link_to 'Destroy', authentication, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Destroy', authentication, :data => { :confirm => 'Are you sure?' }, :method => :delete
 
 %br
 
