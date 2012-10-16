@@ -20,8 +20,10 @@ module Mongoid
       end
 
       def self.slugged_by(field, options={})
-        @@slug_field = field.to_sym
-        @@sluggable_options = defaults.merge options
+        @@slug_field ||= {}
+        @@sluggable_options ||= {}
+        @@slug_field[self.name] = field.to_sym
+        @@sluggable_options[self.name] = defaults.merge options
       end
 
       def self.find_route(route, subdomain)
@@ -43,11 +45,11 @@ module Mongoid
       end
 
       def self.slug_field
-        @@slug_field
+        @@slug_field[self.name]
       end
 
       def self.sluggable_scope
-        @@sluggable_options[:scope]
+        @@sluggable_options[self.name][:scope]
       end
 
       def timed_slugs?
@@ -73,7 +75,7 @@ module Mongoid
       end
 
       def slug_exists?(initial=false)
-        with_same_slug = self.class.where(slug: create_slug_with_initial(initial)).not.where(_id: self.id)
+        with_same_slug = self.class.where(slug: create_slug_with_initial(initial)).where(:id.ne => self.id)
         if self.class.sluggable_scope
           with_same_slug.where(self.class.sluggable_scope => self.send(self.class.sluggable_scope))
         end
@@ -90,14 +92,14 @@ module Mongoid
     end
 
     class Validator < ActiveModel::Validator
-      def validate(record)
-        record.errors[record.class.slug_field] << "Please choose another #{record.class.slug_field.humanize}." unless check(record)
+      def validate(document)
+        document.errors[document.class.slug_field] << "Please choose another #{document.class.slug_field.to_s.humanize}." unless check(document)
       end
 
       private
 
-        def check(record)
-          !record.create_slug.nil?
+        def check(document)
+          !document.create_slug.nil?
         end
     end
   end

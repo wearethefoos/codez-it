@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     if (request.subdomain.empty? || request.subdomain == "www") && user_signed_in?
       if current_user.account
         redirect_to(
-          (root_url subdomain: current_user.account.name.parameterize) +
+          (root_url subdomain: current_user.account.slug) +
           request.path.sub(/^\//, '')
         )
       end

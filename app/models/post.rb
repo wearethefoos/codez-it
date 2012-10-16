@@ -26,7 +26,7 @@ class Post
   #
   # Returns Mongoid::Relations::Targets::Enumerable
   def self.from_blog(account_name)
-    Account.find(account_name).user.posts
+    Account.where(slug: account_name).first.user.posts
   end
 
   private

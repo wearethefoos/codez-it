@@ -1,8 +1,11 @@
 class Account
   include Mongoid::Document
+  include Mongoid::Sluggable
 
   field :name, type: String, default: ""
   field :_id, type: String, default: ->{ name.parameterize }
+
+  slugged_by :name, timed: false
 
   belongs_to :user
 
