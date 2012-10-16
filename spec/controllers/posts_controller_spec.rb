@@ -31,10 +31,16 @@ describe PostsController do
     login_user
 
     describe "GET index" do
-      it "assigns all posts as @posts" do
+      it "assigns no posts as @posts that are not owned by this user." do
         post = Post.create! valid_attributes
         get :index
-        assigns(:posts).should eq([post])
+        assigns(:posts).to_a.should eq([])
+      end
+
+      it "assigns all current user's posts as @posts" do
+        post = FactoryGirl.create :post, user: @current_user
+        get :index
+        assigns(:posts).to_a.should eq([post])
       end
     end
 
@@ -100,42 +106,35 @@ describe PostsController do
 
     describe "PUT update" do
       describe "with valid params" do
+        let(:post) { FactoryGirl.create :post, user: @current_user }
         it "updates the requested post" do
-          post = Post.create! valid_attributes
-          # Assuming there are no other posts in the database, this
-          # specifies that the Post created on the previous line
-          # receives the :update_attributes message with whatever params are
-          # submitted in the request.
           Post.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
           put :update, {:id => post.to_param, :post => {'these' => 'params'}}
         end
 
         it "assigns the requested post as @post" do
-          post = Post.create! valid_attributes
           put :update, {:id => post.to_param, :post => valid_attributes}
           assigns(:post).should eq(post)
         end
 
         it "redirects to the post" do
-          post = Post.create! valid_attributes
           put :update, {:id => post.to_param, :post => valid_attributes}
           response.should redirect_to(post)
         end
       end
 
       describe "with invalid params" do
+        let(:post) { FactoryGirl.create :post, user_id: @current_user.id }
         it "assigns the post as @post" do
-          post = Post.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          Post.any_instance.stub(:save).and_return(false)
+          Post.any_instance.stub(:update_attributes).and_return(false)
           put :update, {:id => post.to_param, :post => {}}
           assigns(:post).should eq(post)
         end
 
         it "re-renders the 'edit' template" do
-          post = Post.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          Post.any_instance.stub(:save).and_return(false)
+          Post.any_instance.stub(:update_attributes).and_return(false)
           put :update, {:id => post.to_param, :post => {}}
           response.should render_template("edit")
         end
@@ -143,15 +142,15 @@ describe PostsController do
     end
 
     describe "DELETE destroy" do
+      let!(:post) { FactoryGirl.create :post, user_id: @current_user.id }
+
       it "destroys the requested post" do
-        post = Post.create! valid_attributes
         expect {
           delete :destroy, {:id => post.to_param}
         }.to change(Post, :count).by(-1)
       end
 
       it "redirects to the posts list" do
-        post = Post.create! valid_attributes
         delete :destroy, {:id => post.to_param}
         response.should redirect_to(posts_url)
       end

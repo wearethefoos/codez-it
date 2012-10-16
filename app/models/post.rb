@@ -4,6 +4,7 @@ class Post
   include Mongoid::Versioning
   include Mongoid::Votable
   include Mongoid::Sluggable
+  include Mongoid::Publishable
 
   field :title, type: String
   field :body, type: String
@@ -34,7 +35,7 @@ class Post
     # Private: Extract code from the body of the post
     # and create Gists in the User's Github account.
     def extract_code_to_gists(request)
-      
+
     end
 
     # Private: Extracts code blocks from the post body.

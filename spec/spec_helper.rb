@@ -40,7 +40,5 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.clean
-    request.env["devise.mapping"] = Devise.mappings[:user]
-    request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
   end
 end

@@ -13,6 +13,7 @@ module Devise
     def login
       before(:each) do
         @request.env["devise.mapping"] = Devise.mappings[:user]
+        @request.env["omniauth.auth"] = ::OmniAuth.config.mock_auth[:github]
         @current_user = user
         sign_in @current_user
         @request.host = "#{user.account.name.parameterize}.test.host"
