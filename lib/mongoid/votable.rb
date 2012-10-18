@@ -9,30 +9,51 @@ module Mongoid
     end
 
     def upvote(user_id)
-      if upvoters.include? user_id
-        collection.update({'_id' => id, 'upvoters' => user_id},
-          {'$inc' => {'votes' => -1}, '$pull' => {'upvoters' => user_id}})
-      else
-        if downvoters.include? user_id
-          collection.update({'_id' => id, 'downvoters' => user_id},
-            {'$inc' => {'votes' => 1}, '$pull' => {'downvoters' => user_id}})
-        end
-        collection.update({'_id' => id, 'upvoters' => {'$ne' => user_id}},
-          {'$inc' => {'votes' => 1}, '$push' => {'upvoters' => user_id}})
-      end
+      vote user_id, :up
     end
 
     def downvote(user_id)
-      if downvoters.include? user_id
-        collection.update({'_id' => id, 'downvoters' => user_id},
-          {'$inc' => {'votes' => 1}, '$pull' => {'downvoters' => user_id}})
+      vote user_id, :down
+    end
+
+    def vote(user_id, direction)
+      case direction.to_sym
+      when :up
+        add = :upvoters
+        remove = :downvoters
+        mod = 1
+      when :down
+        add = :downvoters
+        remove = :upvoters
+        mod = -1
       else
-        if upvoters.include? user_id
-          collection.update({'_id' => id, 'upvoters' => user_id},
-            {'$inc' => {'votes' => -1}, '$pull' => {'upvoters' => user_id}})
-        end
-        collection.update({'_id' => id, 'downvoters' => {'$ne' => user_id}},
-          {'$inc' => {'votes' => -1}, '$push' => {'downvoters' => user_id}})
+        return
+      end
+
+      vote! add, remove, mod
+    end
+
+    def vote!(add, remove, mod)
+      if send(add).include? user_id
+        collection.update( { '_id' => id, add => user_id },
+          {
+            '$inc'  => { 'votes' => -mod },
+            '$pull' => { add => user_id }
+          }
+        )
+      else
+        collection.update( { '_id' => id, remove => user_id },
+          {
+            '$inc' => { 'votes' => mod },
+            '$pull' => { remove => user_id }
+          }
+        )
+        collection.update( { '_id' => id, add => { '$ne' => user_id } },
+          {
+            '$inc' => { 'votes' => mod },
+            '$push' => { add => user_id }
+          }
+       )
       end
     end
 
