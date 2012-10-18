@@ -16,7 +16,7 @@ CodezIt::Application.routes.draw do
     root :to => "admin/accounts#index", :constraints => lambda { |req|
       req.session["warden.user.user.key"] &&
         User.where(_id: req.session["warden.user.user.key"][1]).count > 0 &&
-        User.find(req.session["warden.user.user.key"][1]).first.admin
+        User.find(req.session["warden.user.user.key"][1]).first.admin?
     }
   end
 
