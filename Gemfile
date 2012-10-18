@@ -25,6 +25,7 @@ end
 gem 'jquery-rails'                                # jquery
 
 group :test do
+  gem 'rake'
   gem 'database_cleaner'                          # database cleaning during tests
   gem 'cucumber-rails', require: false            # tdd framework
   gem 'capybara'                                  # tdd syntax

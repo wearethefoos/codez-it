@@ -274,6 +274,7 @@ DEPENDENCIES
   mongoid-rspec
   omniauth-github
   rails (= 3.2.7)
+  rake
   rb-fsevent
   redcarpet
   redis-namespace
