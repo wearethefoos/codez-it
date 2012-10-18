@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.from_blog(request.subdomain).all
+    @posts = Post.from_blog(request.subdomain).order_by([:created_at, -1]).all
 
     respond_to do |format|
       format.html # index.html.erb
