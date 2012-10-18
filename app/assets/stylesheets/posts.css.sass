@@ -25,11 +25,18 @@ $post-header-bg-color: lighten($link-color, 40%)
       color: $quiet-color
       padding-top: 1em
     &.title
-      background-color: $post-header-bg-color
-      padding: 10px 10px 20px
+      +background-image(linear-gradient(top, #ffffff 0%,$post-header-bg-color 100%))
+      padding: 10px
       border: 1px solid $border-color
-      border-width: 1px 0
+      border-width: 0 0 1px
   article
     +column(10)
     .content
       padding: 10px
+
+    .actions
+      text-align: right
+      font-size: 14px
+      font-weight: normal
+      font-family: times, serif
+      margin-bottom: -3em

@@ -1,8 +1,5 @@
 .post.section
   %p.actions
-    - if user_signed_in? && @post.user == current_user
-      = link_to 'Edit', edit_post_path(@post)
-      \|
-    = link_to 'Back', root_path
+    = link_to '« back to the list', root_path
 
-  = render @post
+  = render @post, editable: user_signed_in? && @post.user == current_user
